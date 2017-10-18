@@ -1,18 +1,12 @@
 var http = require('http');
-var url = require('url');
+//var debug = require('debug')('server');
+const util = require('util');
+var debug = util.debuglog('module');
 
-var server = new http.Server(function (req, res) {    
-    console.log(req.headers);
+var server = new http.createServer();
 
-    var urlParsed = url.parse(req.url, true);
-    if (urlParsed.pathname == '/echo' && urlParsed.query.message) {
-        res.statusCode = 200;
-        res.setHeader('Cache-Control', 'no-cache');
-        res.end(urlParsed.query.message);
-    } else {
-        res.statusCode = 404;
-        res.end("Page not found");
-    }
-});
+server.on('request', require('./request'));
 
-server.listen(3000, '127.0.0.1');
+server.listen(3000);
+
+debug("Server is running");
