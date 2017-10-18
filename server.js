@@ -1,7 +1,5 @@
 var http = require('http');
-//var debug = require('debug')('server');
-const util = require('util');
-var debug = util.debuglog('module');
+var debug = require('debug')('server');
 
 var server = new http.createServer();
 
